@@ -1,0 +1,155 @@
+:root{
+  --bg:#0b0b0d; --ivory:#f1ead8; --muted:#b8b1a0; --line:rgba(241,234,216,.18);
+  font-family:Inter,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ivory)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+a{color:inherit}
+:focus-visible{outline:2px solid #ffd49a;outline-offset:3px}
+
+/* ---------- 3D stage ---------- */
+.stage{position:fixed;inset:0;z-index:0}
+.stage canvas{display:block}
+.fallback{position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 50%,#c9965f 0,#8a5535 14%,#2a1b14 30%,#0b0b0d 55%)}
+.vignette{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.65))}
+
+/* ---------- navigation ---------- */
+.nav{position:fixed;z-index:10;top:16px;left:50%;transform:translateX(-50%);
+  width:min(960px,calc(100% - 24px));display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:10px 14px 10px 22px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(20,20,22,.55);backdrop-filter:blur(14px)}
+.nav nav{display:flex;gap:22px}
+.nav nav a{text-decoration:none;font-size:13px;color:var(--muted)}
+.nav nav a:hover{color:var(--ivory)}
+.logo{font-weight:800;letter-spacing:.2em;text-decoration:none;font-size:13px}
+.cta{display:inline-block;padding:10px 18px;border-radius:999px;border:1px solid var(--line);
+  text-decoration:none;font-size:13px;font-weight:600;background:transparent;color:var(--ivory);cursor:pointer}
+.cta.light,.form .cta{background:var(--ivory);color:#111;border-color:var(--ivory)}
+@media(max-width:640px){.nav nav{display:none}}
+
+/* ---------- panels ---------- */
+main{position:relative;z-index:1}
+.panel{
+  min-height:100vh;
+  min-height:100svh; /* stable height when the mobile address bar moves */
+  display:flex;align-items:center;padding:110px 6vw 60px;
+}
+.panel.left{justify-content:flex-start}
+.panel.right{justify-content:flex-end}
+.panel.center{justify-content:center}
+.copy{max-width:420px}
+.copy.wide{max-width:960px;width:100%}
+.label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+h2{font-size:clamp(34px,5vw,64px);line-height:.98;letter-spacing:-.04em;margin:0 0 18px;font-weight:800}
+.copy p{font-size:15px;line-height:1.55;color:var(--muted)}
+.copy .label{color:var(--muted)}
+
+/* ---------- hero ---------- */
+.hero{flex-direction:column;justify-content:space-between;align-items:stretch}
+.wordmark{margin:6vh 0 0;text-align:center;font-weight:800;letter-spacing:-.06em;line-height:.8;
+  font-size:clamp(64px,22vw,340px);color:rgba(241,234,216,.92);mix-blend-mode:normal;
+  text-shadow:0 0 80px rgba(0,0,0,.4)}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.hero-bottom p{max-width:300px;color:var(--muted);font-size:14px;margin:0}
+
+/* ---------- palette swatches ---------- */
+.swatches{display:flex;gap:14px;margin:22px 0 10px}
+.swatch{width:44px;height:44px;border-radius:50%;background:var(--c);border:2px solid transparent;cursor:pointer}
+.swatch.on{border-color:var(--ivory);box-shadow:0 0 0 3px #000 inset}
+
+/* ---------- facts + mission grid ---------- */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:28px 0}
+.facts div{border-top:1px solid var(--line);padding-top:10px}
+dt{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+dd{margin:6px 0 0;font-size:22px;font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+
+/* ---------- briefing form ---------- */
+.form{display:flex;flex-direction:column;gap:14px;width:min(460px,100%);padding:26px;
+  border:1px solid var(--line);border-radius:24px;background:rgba(15,15,17,.72);backdrop-filter:blur(12px)}
+.form label span{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.form input,.form select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);
+  background:#141416;color:var(--ivory);font:inherit}
+.status{min-height:1.4em;font-size:13px;margin:0}
+.status.error{color:#ff9d8a}.status.info{color:#ffd49a}
+
+/* ---------- mission cards ---------- */
+.mission-card{
+  display:flex;flex-direction:column;gap:8px;text-align:left;cursor:pointer;
+  padding:20px;border:1px solid var(--line);border-radius:20px;
+  background:rgba(15,15,17,.65);backdrop-filter:blur(10px);color:var(--ivory);font:inherit;
+  transition:transform .2s ease,border-color .2s ease,background .2s ease;
+}
+.mission-card:hover{transform:translateY(-4px);border-color:rgba(241,234,216,.5);background:rgba(25,25,28,.8)}
+.mc-title{font-size:26px;font-weight:800;letter-spacing:-.03em}
+.mc-text{font-size:14px;line-height:1.5;color:var(--muted)}
+.mc-more{margin-top:auto;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#ffd49a}
+@media (prefers-reduced-motion:reduce){.mission-card{transition:none}.mission-card:hover{transform:none}}
+
+/* ---------- mission dialog ---------- */
+.mission-dialog{
+  width:min(760px,calc(100% - 24px));max-height:88vh;padding:0;overflow:auto;
+  color:var(--ivory);background:#111113;border:1px solid var(--line);border-radius:24px;
+}
+.mission-dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
+.md-inner{position:relative;padding:32px}
+.md-inner h3{margin:0 0 16px;font-size:clamp(32px,6vw,52px);letter-spacing:-.04em;line-height:1}
+.md-inner h4{margin:26px 0 10px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.md-inner p,.md-inner li{font-size:15px;line-height:1.55;color:#d9d2c0}
+.md-inner ul{margin:0;padding-left:20px}
+.md-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--line);background:transparent;color:var(--ivory);cursor:pointer;font-size:16px}
+.md-dates,.md-specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0 0 18px}
+.md-dates div,.md-specs div{border-top:1px solid var(--line);padding-top:8px}
+.md-dates dd,.md-specs dd{margin:4px 0 0;font-size:16px;font-weight:600}
+.md-robot{display:grid;grid-template-columns:minmax(0,260px) 1fr;gap:20px;align-items:center}
+.md-robot-title{font-weight:600;color:var(--ivory)!important}
+.craft{width:100%;height:auto;background:rgba(241,234,216,.04);border:1px solid var(--line);border-radius:16px;padding:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.chips span{padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted)}
+.md-note{margin-top:20px;font-size:12px!important;color:var(--muted)!important}
+@media(max-width:640px){
+  .md-inner{padding:24px 18px}
+  .md-robot{grid-template-columns:1fr}
+}
+
+/* ---------- interactive footer ---------- */
+.footer{position:relative;z-index:1;background:#0b0b0d;border-top:1px solid var(--line);
+  padding:0 6vw 28px;color:var(--muted)}
+.progress{height:3px;margin:0 -6vw 28px;background:var(--line)}
+.progress span{display:block;height:100%;background:#ffd49a}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1.4fr;gap:32px}
+.fact{min-height:4.5em;margin:0 0 12px;font-size:16px;line-height:1.5;color:var(--ivory)}
+.footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.footer ul a{text-decoration:none;font-size:14px}
+.footer ul a:hover{color:var(--ivory)}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.chip-btn{padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:transparent;
+  color:var(--ivory);font:inherit;font-size:13px;cursor:pointer;text-transform:capitalize}
+.chip-btn:hover{border-color:rgba(241,234,216,.5)}
+.chip-btn[aria-pressed="true"]{background:var(--ivory);color:#111}
+.legal{margin:28px 0 0;font-size:12px}
+@media(max-width:760px){.footer-grid{grid-template-columns:1fr}}
+
+/* ---------- mobile layout ---------- */
+@media(max-width:760px){
+  .panel{padding-top:100px;align-items:flex-end}
+  .panel.left,.panel.right{justify-content:center}
+  .copy{max-width:100%;background:linear-gradient(transparent,rgba(11,11,13,.8) 30%);padding:24px 0 0}
+  .hero{align-items:stretch}
+}
+
+/* ---------- mobile performance (keep last) ---------- */
+@media(max-width:760px){
+  /* blur over a live canvas is expensive on phones: use solid translucent fills */
+  .nav,.mission-card,.form{
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    background:rgba(15,15,17,.9);
+  }
+  .mission-dialog::backdrop{backdrop-filter:none;background:rgba(0,0,0,.82)}
+}
