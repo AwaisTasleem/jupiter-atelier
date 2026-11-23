@@ -1,5 +1,7 @@
 # JUPITER: Gas Giant Atelier
 
+**Live demo:** https://jupiter-atelier.vercel.app/
+
 A scroll-led 3D website about Jupiter, built with React, Vite and React Three Fiber.
 The camera, planet and moons are driven by normalized scroll progress, so scrolling
 back always reproduces the same view. Concept project inspired by a reference
